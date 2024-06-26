@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "demoApps.fullname" . }}-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "demoApps.name" . }}-mysql
+      {{- include "demoApps.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "demoApps.name" . }}-mysql
+        {{- include "demoApps.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: mysql
+          image: {{ .Values.mysql.image }}
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: {{ .Values.mysql.env.MYSQL_ROOT_PASSWORD }}
+            - name: MYSQL_DATABASE
+              value: {{ .Values.mysql.env.MYSQL_DATABASE }}

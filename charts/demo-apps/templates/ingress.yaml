@@ -1,0 +1,91 @@
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "demoApps.fullname" . -}}
+{{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
+  {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
+  {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
+  {{- end }}
+{{- end }}
+{{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1
+{{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "demoApps.labels" . | nindent 4 }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  {{- with .Values.ingress.annotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if and .Values.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- end }}
+  {{- if .Values.ingress.tls }}
+  tls:
+    {{- range .Values.ingress.tls }}
+    - hosts:
+        {{- range .hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .secretName }}
+    {{- end }}
+  {{- end }}
+  rules:
+    - host: {{ .Values.ingress.hosts }}
+      http:
+        paths:
+          - path: /java(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ include "demoApps.fullname" . }}-java-sb
+                port:
+                  number: 80
+              {{- else }}
+              serviceName: {{ include "demoApps.fullname" . }}-java-sb
+              servicePort: 80
+              {{- end }}
+          - path: /nodejs(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ include "demoApps.fullname" . }}-nodejs-express
+                port:
+                  number: 80
+              {{- else }}
+              serviceName: {{ include "demoApps.fullname" . }}-nodejs-express
+              servicePort: 80
+              {{- end }}
+          - path: /php(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ include "demoApps.fullname" . }}-php-flight
+                port:
+                  number: 80
+              {{- else }}
+              serviceName: {{ include "demoApps.fullname" . }}-php-flight
+              servicePort: 80
+              {{- end }}
+          - path: /golang(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ include "demoApps.fullname" . }}-golang-echo
+                port:
+                  number: 80
+              {{- else }}
+              serviceName: {{ include "demoApps.fullname" . }}-golang-echo
+              servicePort: 80
+              {{- end }}
+{{- end }}

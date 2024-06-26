@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "demoApps.fullname" . }}-java-sb
+spec:
+  replicas: {{ .Values.javaSb.replicas }}
+  selector:
+    matchLabels:
+      app: {{ include "demoApps.name" . }}-java-sb
+      {{- include "demoApps.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.javaSb.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        app: {{ include "demoApps.name" . }}-java-sb
+        {{- include "demoApps.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: java-sb
+          image: {{ .Values.javaSb.image }}
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://{{ include "demoApps.fullname" . }}-mysql:3306/test
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ include "demoApps.db.username" .}}
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: {{ include "demoApps.db.password" .}}
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: update

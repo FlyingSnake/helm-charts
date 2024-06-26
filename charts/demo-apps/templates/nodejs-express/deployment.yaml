@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "demoApps.fullname" . }}-nodejs-express
+spec:
+  replicas: {{ .Values.nodejsExpress.replicas }}
+  selector:
+    matchLabels:
+      app: {{ include "demoApps.name" . }}-nodejs-express
+      {{- include "demoApps.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.nodejsExpress.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        app: {{ include "demoApps.name" . }}-nodejs-express
+        {{- include "demoApps.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: nodejs-express
+          image: {{ .Values.nodejsExpress.image }}
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DB_HOST
+              value: {{ include "demoApps.fullname" . }}-mysql
+            - name: DB_USERNAME
+              value: {{ include "demoApps.db.username" . }}
+            - name: DB_PASSWORD
+              value: {{ include "demoApps.db.password" . }}
+            - name: DB_DATABASE
+              value: test

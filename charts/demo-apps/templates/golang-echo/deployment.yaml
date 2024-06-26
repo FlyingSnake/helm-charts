@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "demoApps.fullname" . }}-golang-echo
+spec:
+  replicas: {{ .Values.golangEcho.replicas }}
+  selector:
+    matchLabels:
+      app: {{ include "demoApps.name" . }}-golang-echo
+      {{- include "demoApps.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.golangEcho.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        app: {{ include "demoApps.name" . }}-golang-echo
+        {{- include "demoApps.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: golang-echo
+          image: {{ .Values.golangEcho.image }}
+          ports:
+            - containerPort: 80
+          env:
+            - name: DB_HOST
+              value: {{ include "demoApps.fullname" . }}-mysql
+            - name: DB_USERNAME
+              value: {{ include "demoApps.db.username" . }}
+            - name: DB_PASSWORD
+              value: {{ include "demoApps.db.password" . }}
+            - name: DB_DATABASE
+              value: test
