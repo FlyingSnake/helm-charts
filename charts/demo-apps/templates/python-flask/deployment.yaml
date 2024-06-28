@@ -1,34 +1,36 @@
-{{- if .Values.nodejsExpress.enabled }}
+{{- if .Values.pythonFlask.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "demoApps.fullname" . }}-nodejs-express
+  name: {{ include "demoApps.fullname" . }}-python-flask
+  labels:
+    {{- include "demoApps.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.nodejsExpress.replicas }}
+  replicas: {{ .Values.pythonFlask.replicas }}
   selector:
     matchLabels:
-      app: {{ include "demoApps.name" . }}-nodejs-express
+      app: {{ include "demoApps.name" . }}-python-flask
       {{- include "demoApps.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.nodejsExpress.podAnnotations }}
+      {{- with .Values.pythonFlask.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        app: {{ include "demoApps.name" . }}-nodejs-express
+        app: {{ include "demoApps.name" . }}-python-flask
         {{- include "demoApps.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-        - name: nodejs-express
-          image: {{ .Values.nodejsExpress.image }}
+        - name: python-flask
+          image: {{ .Values.pythonFlask.image }}
           ports:
-            - containerPort: 3000
+            - containerPort: 5000
           env:
             - name: DB_HOST
               value: {{ include "demoApps.fullname" . }}-mysql
             - name: DB_USERNAME
-              value: {{ include "demoApps.db.username" . }}
+              value: root
             - name: DB_PASSWORD
               value: {{ include "demoApps.db.password" . }}
             - name: DB_DATABASE

@@ -1,32 +1,61 @@
-ingress:
-  enabled: true
-  annotations: {}
-  className: nginx
-  hosts: demo.example.com
-  tls: []
-
 javaSb:
-  image: flyingsnake12/demo-java-springboot:1.0.1
+  enabled: true
+  image: flyingsnake12/demo-java-springboot:1.0.2
   replicas: 1
   podAnnotations: {}
 
 nodejsExpress:
-  image: flyingsnake12/demo-nodejs-express:1.0.1
+  enabled: true
+  image: flyingsnake12/demo-nodejs-express:1.0.2
   replicas: 1
   podAnnotations: {}
 
 golangEcho:
-  image: flyingsnake12/demo-golang-echo:1.0.1
+  enabled: true
+  image: flyingsnake12/demo-golang-echo:1.0.2
   replicas: 1
   podAnnotations: {}
 
 phpFlight:
-  image: flyingsnake12/demo-php-flight:1.0.1
+  enabled: true
+  image: flyingsnake12/demo-php-flight:1.0.2
   replicas: 1
   podAnnotations: {}
+
+pythonFlask:
+  enabled: true
+  image: flyingsnake12/demo-python-flask:1.0.0
+  replicas: 1
+  podAnnotations: {}
+
+dotnetCarter:
+  enabled: true
+  image: flyingsnake12/demo-dotnet-carter:1.0.0
+  replicas: 1
+  podAnnotations: {}
+
+frontWeb:
+  enabled: true
+  image: flyingsnake12/demo-react:nginx-otel-stable
+  replicas: 1
+  podAnnotations: {}
+  ingress:
+    enabled: true
+    annotations: {}
+    className: nginx
+    hosts: demo-web.example.com
+    tls: []
+
 
 mysql:
   image: flyingsnake12/demo-mysql:1.0.0
   env:
     MYSQL_ROOT_PASSWORD: root
     MYSQL_DATABASE: test
+
+ingress:
+  enabled: false
+  annotations: {}
+  className: nginx
+  hosts: demo.example.com
+  tls: []

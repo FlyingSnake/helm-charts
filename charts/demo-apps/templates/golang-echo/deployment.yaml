@@ -1,3 +1,4 @@
+{{- if .Values.golangEcho.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -32,3 +33,4 @@ spec:
               value: {{ include "demoApps.db.password" . }}
             - name: DB_DATABASE
               value: test
+{{- end }}

@@ -1,0 +1,13 @@
+{{- if .Values.frontWeb.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "demoApps.fullname" . }}-web
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: {{ include "demoApps.name" . }}-web
+{{- end }}

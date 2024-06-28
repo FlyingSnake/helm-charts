@@ -40,6 +40,21 @@ spec:
     - host: {{ .Values.ingress.hosts }}
       http:
         paths:
+          {{- if .Values.frontWeb.enabled }}
+          - path: /dotnet(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ include "demoApps.fullname" . }}-dotnet-carter
+                port:
+                  number: 80
+              {{- else }}
+              serviceName: {{ include "demoApps.fullname" . }}-dotnet-carter
+              servicePort: 80
+              {{- end }}
+          {{- end }}
+         {{- if .Values.javaSb.enabled }}
           - path: /java(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
@@ -52,6 +67,8 @@ spec:
               serviceName: {{ include "demoApps.fullname" . }}-java-sb
               servicePort: 80
               {{- end }}
+          {{- end }}
+          {{- if .Values.nodejsExpress.enabled }}
           - path: /nodejs(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
@@ -64,6 +81,8 @@ spec:
               serviceName: {{ include "demoApps.fullname" . }}-nodejs-express
               servicePort: 80
               {{- end }}
+          {{- end }}
+          {{- if .Values.phpFlight.enabled }}
           - path: /php(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
@@ -76,6 +95,8 @@ spec:
               serviceName: {{ include "demoApps.fullname" . }}-php-flight
               servicePort: 80
               {{- end }}
+          {{- end }}
+          {{- if .Values.golangEcho.enabled }}
           - path: /golang(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
@@ -88,4 +109,33 @@ spec:
               serviceName: {{ include "demoApps.fullname" . }}-golang-echo
               servicePort: 80
               {{- end }}
+          {{- end }}
+          {{- if .Values.pythonFlask.enabled }}
+          - path: /python(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ include "demoApps.fullname" . }}-python-flask
+                port:
+                  number: 80
+              {{- else }}
+              serviceName: {{ include "demoApps.fullname" . }}-python-flask
+              servicePort: 80
+              {{- end }}
+          {{- end }}
+          {{- if .Values.dotnetCarter.enabled }}
+          - path: /dotnet(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ include "demoApps.fullname" . }}-dotnet-carter
+                port:
+                  number: 80
+              {{- else }}
+              serviceName: {{ include "demoApps.fullname" . }}-dotnet-carter
+              servicePort: 80
+              {{- end }}
+          {{- end }}
 {{- end }}

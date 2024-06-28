@@ -1,0 +1,42 @@
+{{- if .Values.frontWeb.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "demoApps.fullname" . }}-web
+  labels:
+    {{- include "demoApps.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.frontWeb.replicas }}
+  selector:
+    matchLabels:
+      app: {{ include "demoApps.name" . }}-web
+      {{- include "demoApps.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.frontWeb.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        app: {{ include "demoApps.name" . }}-web
+        {{- include "demoApps.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: web
+          image: {{ .Values.frontWeb.image }}
+          ports:
+            - containerPort: 80
+          env:
+            - name: JAVA_SERVICE
+              value: {{ include "demoApps.fullname" . }}-java-sb
+            - name: GOLANG_SERVICE
+              value: {{ include "demoApps.fullname" . }}-golang-echo
+            - name: NODEJS_SERVICE
+              value: {{ include "demoApps.fullname" . }}-nodejs-express
+            - name: PYTHON_SERVICE
+              value: {{ include "demoApps.fullname" . }}-python-flask
+            - name: DOTNET_SERVICE
+              value: {{ include "demoApps.fullname" . }}-dotnet-carter
+            - name: PHP_SERVICE
+              value: {{ include "demoApps.fullname" . }}-php-flight
+{{- end }}
