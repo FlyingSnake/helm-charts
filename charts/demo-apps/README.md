@@ -34,7 +34,6 @@ A Helm chart for Kubernetes
 | javaSb.image | string | `"flyingsnake12/demo-java-springboot:1.0.2"` |  |
 | javaSb.podAnnotations | object | `{}` |  |
 | javaSb.replicas | int | `1` |  |
-| mysql.env.MYSQL_DATABASE | string | `"test"` |  |
 | mysql.env.MYSQL_ROOT_PASSWORD | string | `"root"` |  |
 | mysql.image | string | `"flyingsnake12/demo-mysql:1.0.0"` |  |
 | nodejsExpress.enabled | bool | `true` |  |

@@ -51,7 +51,6 @@ mysql:
   image: flyingsnake12/demo-mysql:1.0.0
   env:
     MYSQL_ROOT_PASSWORD: root
-    MYSQL_DATABASE: test
 
 ingress:
   enabled: false

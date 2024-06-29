@@ -30,9 +30,9 @@ spec:
             - name: DB_HOST
               value: {{ include "demoApps.fullname" . }}-mysql
             - name: DB_USERNAME
-              value: root
+              value: {{ include "demoApps.db.username" .}}
             - name: DB_PASSWORD
               value: {{ include "demoApps.db.password" . }}
             - name: DB_DATABASE
-              value: test
+              value: {{ include "demoApps.db.database" . }}
 {{- end }}

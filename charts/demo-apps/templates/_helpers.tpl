@@ -64,7 +64,7 @@ Create the name of the service account to use
 
 
 {{- define "demoApps.db.database" -}}
-{{ .Values.mysql.env.MYSQL_DATABASE }}
+test
 {{- end }}
 {{- define "demoApps.db.username" -}}
 root

@@ -26,7 +26,7 @@ spec:
             - containerPort: 8080
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://{{ include "demoApps.fullname" . }}-mysql:3306/test
+              value: jdbc:mysql://{{ include "demoApps.fullname" . }}-mysql:3306/{{ include "demoApps.db.database" . }}
             - name: SPRING_DATASOURCE_USERNAME
               value: {{ include "demoApps.db.username" .}}
             - name: SPRING_DATASOURCE_PASSWORD

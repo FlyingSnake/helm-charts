@@ -23,4 +23,4 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               value: {{ .Values.mysql.env.MYSQL_ROOT_PASSWORD }}
             - name: MYSQL_DATABASE
-              value: {{ .Values.mysql.env.MYSQL_DATABASE }}
+              value: {{ include "demoApps.db.database" . }}
