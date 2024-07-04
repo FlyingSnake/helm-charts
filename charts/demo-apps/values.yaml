@@ -24,7 +24,7 @@ phpFlight:
 
 pythonFlask:
   enabled: true
-  image: flyingsnake12/demo-python-flask:1.0.0
+  image: flyingsnake12/demo-python-flask:1.0.1
   replicas: 1
   podAnnotations: {}
 
