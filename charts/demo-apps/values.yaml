@@ -30,7 +30,7 @@ pythonFlask:
 
 dotnetCarter:
   enabled: true
-  image: flyingsnake12/demo-dotnet-carter:1.0.0
+  image: flyingsnake12/demo-dotnet-carter:1.0.1
   replicas: 1
   podAnnotations: {}
 

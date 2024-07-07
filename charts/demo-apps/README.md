@@ -9,7 +9,7 @@ A Helm chart for Kubernetes
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | dotnetCarter.enabled | bool | `true` |  |
-| dotnetCarter.image | string | `"flyingsnake12/demo-dotnet-carter:1.0.0"` |  |
+| dotnetCarter.image | string | `"flyingsnake12/demo-dotnet-carter:1.0.1"` |  |
 | dotnetCarter.podAnnotations | object | `{}` |  |
 | dotnetCarter.replicas | int | `1` |  |
 | frontWeb.enabled | bool | `true` |  |
@@ -45,7 +45,7 @@ A Helm chart for Kubernetes
 | phpFlight.podAnnotations | object | `{}` |  |
 | phpFlight.replicas | int | `1` |  |
 | pythonFlask.enabled | bool | `true` |  |
-| pythonFlask.image | string | `"flyingsnake12/demo-python-flask:1.0.0"` |  |
+| pythonFlask.image | string | `"flyingsnake12/demo-python-flask:1.0.1"` |  |
 | pythonFlask.podAnnotations | object | `{}` |  |
 | pythonFlask.replicas | int | `1` |  |
 
