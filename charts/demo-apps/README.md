@@ -9,7 +9,7 @@ A Helm chart for Kubernetes
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | dotnetCarter.enabled | bool | `true` |  |
-| dotnetCarter.image | string | `"flyingsnake12/demo-dotnet-carter:1.0.1"` |  |
+| dotnetCarter.image | string | `"flyingsnake12/demo-dotnet-carter:1.0.2"` |  |
 | dotnetCarter.podAnnotations | object | `{}` |  |
 | dotnetCarter.replicas | int | `1` |  |
 | frontWeb.enabled | bool | `true` |  |
@@ -22,7 +22,7 @@ A Helm chart for Kubernetes
 | frontWeb.podAnnotations | object | `{}` |  |
 | frontWeb.replicas | int | `1` |  |
 | golangEcho.enabled | bool | `true` |  |
-| golangEcho.image | string | `"flyingsnake12/demo-golang-echo:1.0.2"` |  |
+| golangEcho.image | string | `"flyingsnake12/demo-golang-echo:1.0.3"` |  |
 | golangEcho.podAnnotations | object | `{}` |  |
 | golangEcho.replicas | int | `1` |  |
 | ingress.annotations | object | `{}` |  |

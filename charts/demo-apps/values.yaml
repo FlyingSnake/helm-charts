@@ -12,7 +12,7 @@ nodejsExpress:
 
 golangEcho:
   enabled: true
-  image: flyingsnake12/demo-golang-echo:1.0.2
+  image: flyingsnake12/demo-golang-echo:1.0.3
   replicas: 1
   podAnnotations: {}
 
@@ -30,7 +30,7 @@ pythonFlask:
 
 dotnetCarter:
   enabled: true
-  image: flyingsnake12/demo-dotnet-carter:1.0.1
+  image: flyingsnake12/demo-dotnet-carter:1.0.2
   replicas: 1
   podAnnotations: {}
 
