@@ -13,7 +13,7 @@ A Helm chart for Kubernetes
 | dotnetCarter.podAnnotations | object | `{}` |  |
 | dotnetCarter.replicas | int | `1` |  |
 | frontWeb.enabled | bool | `true` |  |
-| frontWeb.image | string | `"flyingsnake12/demo-react:nginx-otel-stable"` |  |
+| frontWeb.image | string | `"flyingsnake12/demo-react:nginx-1.23.1"` |  |
 | frontWeb.ingress.annotations | object | `{}` |  |
 | frontWeb.ingress.className | string | `"nginx"` |  |
 | frontWeb.ingress.enabled | bool | `true` |  |

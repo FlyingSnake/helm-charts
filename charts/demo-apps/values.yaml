@@ -36,7 +36,7 @@ dotnetCarter:
 
 frontWeb:
   enabled: true
-  image: flyingsnake12/demo-react:nginx-otel-stable
+  image: flyingsnake12/demo-react:nginx-1.23.1
   replicas: 1
   podAnnotations: {}
   ingress:
